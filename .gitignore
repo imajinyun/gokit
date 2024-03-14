@@ -15,7 +15,17 @@
 *.out
 
 # Dependency directories (remove the comment below to include it)
-# vendor/
+vendor
 
 # Go workspace file
 go.work
+
+# IDEA file
+.idea
+.vacode
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw*

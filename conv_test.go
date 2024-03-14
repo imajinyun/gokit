@@ -9,32 +9,74 @@ import (
 var json = jsoniter.Config{SortMapKeys: true}.Froze()
 
 func TestStructToMap(t *testing.T) {
-	var mapTests = []struct {
-		Name      string `json:"name"`
-		Age       uint8  `json:"age"`
-		Email     string `json:"email"`
-		IsMarried bool   `json:"is_married"`
-		CreatedAt string `json:"created_at"`
+	tests := []struct {
+		name string
+		data any
+		want string
 	}{
-		{"jack", 18, "jack@example.com", false, "2024-03-13 18:00:00"},
-		{"pony", 20, "pony@example.com", true, "2024-03-13 18:31:23"},
+		{
+			name: "test case 1",
+			data: struct {
+				ID   int    `json:"id"`
+				Name string `json:"name"`
+			}{1, "jack"},
+			want: `{"id":1,"name":"jack"}`,
+		},
+		{
+			name: "test case 2",
+			data: struct {
+				TestID   int    `json:"test_id"`
+				TestName string `json:"test_name"`
+			}{10, "test name"},
+			want: `{"test_id":10,"test_name":"test name"}`,
+		},
+		{
+			name: "test case 3",
+			data: struct{}{},
+			want: "{}",
+		},
+		{
+			name: "test case 4",
+			data: struct {
+				Name      string `json:"name"`
+				Age       uint8  `json:"age"`
+				Email     string `json:"email"`
+				IsMarried bool   `json:"is_married"`
+				CreatedAt string `json:"created_at"`
+			}{"jack", 18, "jack@example.com", false, "2024-03-13 18:00:00"},
+			want: `{"age":18,"created_at":"2024-03-13 18:00:00","email":"jack@example.com","is_married":false,"name":"jack"}`,
+		},
+		{
+			name: "test case 5",
+			data: struct {
+				StrField  string `json:"str_field"`
+				NumField  int    `json:"num_field"`
+				BoolField bool   `json:"bool_field"`
+				NestField struct {
+					F1 string `json:"f1"`
+					F2 int    `json:"f2"`
+				} `json:"nest_field"`
+			}{},
+			want: `{"bool_field":false,"nest_field":{"f1":"","f2":0},"num_field":0,"str_field":""}`,
+		},
 	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			defer func() {
+				if r := recover(); r != nil {
+					t.Errorf("TestStructToMap() panicked: %v", r)
+				}
+			}()
 
-	outs := []string{
-		`{"age":18,"created_at":"2024-03-13 18:00:00","email":"jack@example.com","is_married":false,"name":"jack"}`,
-		`{"age":20,"created_at":"2024-03-13 18:31:23","email":"pony@example.com","is_married":true,"name":"pony"}`,
-	}
+			got := StructToMap[any](tt.data)
+			byt, err := json.Marshal(got)
+			if err != nil {
+				t.Errorf("TestStructToMap() error: %v", err)
+			}
 
-	for i, tt := range mapTests {
-		got := StructToMap(tt)
-		byt, err := json.MarshalToString(got)
-		if err != nil {
-			t.Fatal(err)
-		}
-
-		out := outs[i]
-		if string(byt) != out {
-			t.Errorf("StructToMap(%v) = %v, want: %v", tt, string(byt), out)
-		}
+			if string(byt) != tt.want {
+				t.Errorf("StructToMap() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }
