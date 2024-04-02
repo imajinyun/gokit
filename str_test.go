@@ -23,3 +23,34 @@ func TestRandStr(t *testing.T) {
 		}
 	}
 }
+
+func TestEmpty(t *testing.T) {
+	var emptyTests = []struct {
+		in  any
+		out bool
+	}{
+		{"", true},
+		{"0", false},
+    {".0", false},
+    {false, true},
+    {true, false},
+		{nil, true},
+		{0, true},
+    {0.1, false},
+    {3.14, false},
+    {uint(0), true},
+    {int64(-1), false},
+    {[]string{}, true},
+    {[]int{}, true},
+    {[...]string{}, true},
+    {[...]int{}, true},
+    {map[string]any{}, true},
+    {make(map[string]int), true},
+	}
+
+	for _, tt := range emptyTests {
+		if got := Empty(tt.in); got != tt.out {
+			t.Errorf("Empty(%v) = %v, want: %v", tt.in, got, tt.out)
+		}
+	}
+}
