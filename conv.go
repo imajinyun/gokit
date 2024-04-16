@@ -1,6 +1,7 @@
 package gohelper
 
 import (
+	"encoding/json"
 	"fmt"
 	"reflect"
 	"strings"
@@ -11,7 +12,21 @@ import (
 // data: the data to be converted.
 // string: the string representation of the data.
 func ToString(data any) string {
-  return fmt.Sprintf("%v" ,data)
+	return fmt.Sprintf("%v", data)
+}
+
+// ToJson converts the given data to a JSON string representation.
+//
+// data: the data to be converted.
+// string: the JSON string representation of the data.
+// error: an error if the conversion fails.
+func ToJson(data any) (string, error) {
+	res, err := json.Marshal(data)
+	if err != nil {
+		res = []byte("")
+	}
+
+	return string(res), nil
 }
 
 // StructToMap converts a struct to a map[string]T, where T is the type of the struct fields.

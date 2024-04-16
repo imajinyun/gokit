@@ -1,12 +1,11 @@
 package gohelper
 
 import (
+	"reflect"
 	"testing"
 
 	jsoniter "github.com/json-iterator/go"
 )
-
-var json = jsoniter.Config{SortMapKeys: true}.Froze()
 
 func TestToString(t *testing.T) {
 	tests := []struct {
@@ -15,7 +14,7 @@ func TestToString(t *testing.T) {
 	}{
 		{"hello world", "hello world"},
 		{true, "true"},
-    {false, "false"},
+		{false, "false"},
 		{0, "0"},
 		{123, "123"},
 		{3.1415926, "3.1415926"},
@@ -37,7 +36,47 @@ func TestToString(t *testing.T) {
 	}
 }
 
+func TestToJson(t *testing.T) {
+	tests := []struct {
+		name string
+		data any
+		out  string
+	}{
+		{
+			name: "test case 1",
+			data: struct {
+				Id int `json:"id"`
+			}{Id: 1},
+			out: `{"id":1}`,
+		},
+		{
+			name: "test case 2",
+			data: struct{}{},
+			out:  `{}`,
+		},
+		{
+			name: "test case 3",
+			data: []int{1, 2, 3},
+			out:  `[1,2,3]`,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := ToJson(tt.data)
+			if err != nil {
+				t.Errorf("ToJson(%v) error = %v, want nil error", tt.data, err)
+			}
+			if !reflect.DeepEqual(got, tt.out) {
+				t.Errorf("ToJson(%v) = %v, want %v", tt.data, got, tt.out)
+			}
+		})
+	}
+}
+
 func TestStructToMap(t *testing.T) {
+	var json = jsoniter.Config{SortMapKeys: true}.Froze()
+
 	tests := []struct {
 		name string
 		data any
