@@ -41,21 +41,30 @@ func IsDigit(s string) bool {
 	return true
 }
 
+// IsNumber checks if the input string is a number.
+//
+// s: the string to be checked
+// bool: returns true if the string is a number, false otherwise.
 func IsNumber(s string) bool {
 	re := regexp.MustCompile(`^-?\d+(\.\d+)?$`)
 
 	return re.MatchString(s)
 }
 
+// IsFloat checks if a string can be parsed into a float64.
+//
+// s: the string to be checked
+// bool: returns true if the string can be parsed into a float64, false otherwise.
 func IsFloat(s string) bool {
 	_, err := strconv.ParseFloat(s, 64)
 
 	return err == nil
 }
 
+
 // IsInteger checks if the given value is an integer.
 //
-// T is the type of the value. It must be one of the following: int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64.
+// T is the type of the value.
 // value is the value to check.
 // bool is the return type indicating if the value is an integer.
 func IsInteger[T any](value T) bool {
@@ -81,6 +90,11 @@ func IsInteger[T any](value T) bool {
 	}
 }
 
+// IsNatural checks if the given value is a natural number.
+//
+// T is the type of the value.
+// value is the value to check.
+// bool is the return type indicating if the value is a natural number.
 func IsNatural[T any](value T) bool {
 	return IsInteger(value) && IsPositive(value)
 }
@@ -88,9 +102,9 @@ func IsNatural[T any](value T) bool {
 // IsPositive checks if the given value is positive.
 //
 // T is the type of the value.
-// It must be one of the following: int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64, float32, float64.
 // value is the value to check.
-// bool is the return type indicating if the value is positive.
+// positive is the return type indicating if the value is positive.
+// It returns a boolean value.
 func IsPositive[T any](value T) (positive bool) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -130,9 +144,9 @@ func IsPositive[T any](value T) (positive bool) {
 // IsNegative checks if the given value is negative.
 //
 // T is the type of the value.
-// It must be one of the following: int, uint, int8, uint8, int16, uint16, int32, uint32, int64, uint64, float32, float64.
 // value is the value to check.
-// bool is the return type indicating if the value is negative.
+// negative is the return type indicating if the value is negative.
+// It returns a boolean value.
 func IsNegative[T any](value T) (negative bool) {
 	defer func() {
 		if r := recover(); r != nil {
