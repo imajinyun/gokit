@@ -8,6 +8,35 @@ import (
 
 var json = jsoniter.Config{SortMapKeys: true}.Froze()
 
+func TestToString(t *testing.T) {
+	tests := []struct {
+		data any
+		out  string
+	}{
+		{"hello world", "hello world"},
+		{true, "true"},
+    {false, "false"},
+		{0, "0"},
+		{123, "123"},
+		{3.1415926, "3.1415926"},
+		{-3.1415926, "-3.1415926"},
+		{nil, "<nil>"},
+		{"", ""},
+		{[]int{1, 2, 3}, "[1 2 3]"},
+		{[]float64{1.20, 2.30, 3.40}, "[1.2 2.3 3.4]"},
+		{[...]uint{1, 2, 3}, "[1 2 3]"},
+		{struct{ name string }{"jack"}, `{jack}`},
+		{map[string]any{"hello": "world", "world": 123}, `map[hello:world world:123]`},
+	}
+
+	for _, tt := range tests {
+		got := ToString(tt.data)
+		if got != tt.out {
+			t.Errorf("ToString(%v) = %v, want: %v", tt.data, got, tt.out)
+		}
+	}
+}
+
 func TestStructToMap(t *testing.T) {
 	tests := []struct {
 		name string
