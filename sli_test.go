@@ -3,7 +3,7 @@ package gohelper
 import "testing"
 
 func TestInSlice(t *testing.T) {
-	var inSliceTests = []struct {
+	var tests = []struct {
 		in    any
 		slice []any
 		out   any
@@ -27,7 +27,7 @@ func TestInSlice(t *testing.T) {
 		},
 	}
 
-	for _, tt := range inSliceTests {
+	for _, tt := range tests {
 		got := InSlice(tt.in, tt.slice)
 		if got != tt.out {
 			t.Errorf("InSlice(%v, %v) = %v, want %v", tt.in, tt.slice, got, tt.out)

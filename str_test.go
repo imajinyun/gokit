@@ -3,7 +3,7 @@ package gohelper
 import "testing"
 
 func TestRandStr(t *testing.T) {
-	var randStrTests = []struct {
+	var tests = []struct {
 		len int
 	}{
 		{1},
@@ -16,8 +16,9 @@ func TestRandStr(t *testing.T) {
 		{10000000},
 	}
 
-	for _, tt := range randStrTests {
+	for _, tt := range tests {
 		got := RandStr(tt.len)
+    t.Log(got)
 		if len(got) != tt.len {
 			t.Errorf("RandStr(%d) = %d, want: %d", tt.len, len(got), tt.len)
 		}
@@ -25,7 +26,7 @@ func TestRandStr(t *testing.T) {
 }
 
 func TestEmpty(t *testing.T) {
-	var emptyTests = []struct {
+	var tests = []struct {
 		in  any
 		out bool
 	}{
@@ -48,7 +49,7 @@ func TestEmpty(t *testing.T) {
     {make(map[string]int), true},
 	}
 
-	for _, tt := range emptyTests {
+	for _, tt := range tests {
 		if got := Empty(tt.in); got != tt.out {
 			t.Errorf("Empty(%v) = %v, want: %v", tt.in, got, tt.out)
 		}

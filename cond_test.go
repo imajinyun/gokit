@@ -6,7 +6,7 @@ import (
 )
 
 func TestIf(t *testing.T) {
-	var ifTests = []struct {
+	var tests = []struct {
 		expr bool
 		succ any
 		fail any
@@ -22,7 +22,7 @@ func TestIf(t *testing.T) {
 		{"🐶" == "🐶", true, false, true},
 	}
 
-	for _, tt := range ifTests {
+	for _, tt := range tests {
 		got := If(tt.expr, tt.succ, tt.fail)
 		switch got.(type) {
 		case bool:

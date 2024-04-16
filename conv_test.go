@@ -60,6 +60,7 @@ func TestStructToMap(t *testing.T) {
 			want: `{"bool_field":false,"nest_field":{"f1":"","f2":0},"num_field":0,"str_field":""}`,
 		},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			defer func() {
