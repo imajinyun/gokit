@@ -3,16 +3,29 @@ package gohelper
 import (
 	"math/rand"
 	"reflect"
+	"regexp"
+	"strings"
+	"time"
+	"unicode"
 )
 
-// RandStr generates a random string of a specified length.
+// RandStr generates a random string of length n.
 //
-// len int - the length of the random string.
-// Returns string - the randomly generated string.
-func RandStr(len int) string {
-	bytes := make([]byte, len)
-	for i := 0; i < len; i++ {
-		b := byte(65 + rand.Intn(25))
+// Parameters:
+// - n: the length of the random string.
+//
+// Return type:
+// - string: the generated random string.
+func RandStr(n int) string {
+  if n > 1024 {
+    n = 1024
+  }
+
+  var src = rand.NewSource(time.Now().UnixNano())
+  r := rand.New(src)
+	bytes := make([]byte, n)
+	for i := 0; i < n; i++ {
+		b := byte(65 + r.Intn(25))
 		bytes[i] = b
 	}
 
@@ -45,4 +58,49 @@ func Empty(val any) bool {
 	}
 
 	return reflect.DeepEqual(val, reflect.Zero(v.Type()).Interface())
+}
+
+// Trim trims the specified characters from both ends of a string.
+//
+// Parameters:
+// - s: the string to be trimmed.
+// - char: the characters to be trimmed.
+// Return type:
+// - string: the trimmed string.
+func Trim(s string, char string) string {
+	return TrimLeft(TrimRight(s, char), char)
+}
+
+// TrimLeft removes leading characters from a string.
+//
+// Parameters:
+// - s: the string to trim.
+// - char: the characters to remove from the start of the string.
+// Return type:
+// - string: the trimmed string.
+func TrimLeft(s string, char string) string {
+	if char == "" {
+		return strings.TrimLeftFunc(s, unicode.IsSpace)
+	}
+
+	r, _ := regexp.Compile("^[" + char + "]+")
+
+	return r.ReplaceAllString(s, "")
+}
+
+// TrimRight removes trailing characters from a string.
+//
+// Parameters:
+// - s: the string to be trimmed.
+// - char: the characters to be trimmed.
+// Return type:
+// - string: the trimmed string.
+func TrimRight(s string, char string) string {
+	if char == "" {
+		return strings.TrimRightFunc(s, unicode.IsSpace)
+	}
+
+	r, _ := regexp.Compile("[" + char + "]+$")
+
+	return r.ReplaceAllString(s, "")
 }
