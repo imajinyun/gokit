@@ -7,29 +7,40 @@ import (
 	"strings"
 	"time"
 	"unicode"
+	"unsafe"
 )
+
+const lowercs = "abcdefghijklmnopqrstuvwxyz"
+const uppercs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const numbers = "0123456789"
+const symbols = `~!@#$%^&*()_+{}|:"<>?-=[]\;',./`
+
+const letterIdxBits = 6
+const	letterIdxMask = 2<<letterIdxBits - 1
+const	letterIdxMax  = 63 / letterIdxBits
+
+type Option struct {
+  IncludeNumber bool
+  IncludeUppercase bool
+  IncludeSymbol bool
+}
+
 
 // RandStr generates a random string of length n.
 //
-// Parameters:
-// - n: the length of the random string.
-//
-// Return type:
-// - string: the generated random string.
+// n: the length of the string to be generated.
+// string: the randomly generated string.
 func RandStr(n int) string {
-  if n > 1024 {
-    n = 1024
-  }
+	return gen(n, Option{})
+}
 
-  var src = rand.NewSource(time.Now().UnixNano())
-  r := rand.New(src)
-	bytes := make([]byte, n)
-	for i := 0; i < n; i++ {
-		b := byte(65 + r.Intn(25))
-		bytes[i] = b
-	}
-
-	return string(bytes)
+// RandStrWithOption generates a random string of length n with custom options.
+//
+// n: the length of the string to be generated.
+// opt: the options to include in the generated string.
+// string: the randomly generated string.
+func RandStrWithOption(n int, opt Option) string {
+  return gen(n, opt)
 }
 
 func Empty(val any) bool {
@@ -103,4 +114,38 @@ func TrimRight(s string, char string) string {
 	r, _ := regexp.Compile("[" + char + "]+$")
 
 	return r.ReplaceAllString(s, "")
+}
+
+func gen(n int, opt Option) string {
+  letters := lowercs
+
+  if opt.IncludeNumber {
+    letters += numbers
+  }
+
+  if opt.IncludeUppercase {
+    letters +=uppercs
+  }
+
+  if opt.IncludeSymbol {
+    letters += symbols
+  }
+
+  src := rand.NewSource(time.Now().UnixNano())
+  byt := make([]byte, n)
+
+  for i, cache, remain := n-1, src.Int63(), letterIdxMax; i >= 0; {
+		if remain == 0 {
+			cache, remain = src.Int63(), letterIdxMax
+		}
+
+		if idx := int(cache & letterIdxMask); idx < len(letters) {
+			byt[i] = letters[idx]
+			i--
+		}
+		cache >>= letterIdxBits
+		remain--
+	}
+
+  return *(*string)(unsafe.Pointer(&byt))
 }

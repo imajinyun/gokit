@@ -7,20 +7,55 @@ import (
 func TestRandStr(t *testing.T) {
 	var tests = []struct {
 		len int
-    out int
+		out int
 	}{
 		{1, 1},
-		{10, 10},
-		{100, 100},
-		{1000, 1000},
-		{10000, 1024},
-		{100000, 1024},
-		{1000000, 1024},
-		{10000000, 1024},
+		{2, 2},
+		{4, 4},
+		{8, 8},
+		{16, 16},
+		{32, 32},
+		{64, 64},
+		{128, 128},
+		{256, 256},
+		{512, 512},
+		{1024, 1024},
+		{2048, 2048},
 	}
 
 	for _, tt := range tests {
 		got := RandStr(tt.len)
+		if len(got) != tt.out {
+			t.Errorf("RandStr(%d) = %d, want: %d", tt.len, len(got), tt.out)
+		}
+	}
+}
+
+func TestRandStrWithOption(t *testing.T) {
+	var tests = []struct {
+		len int
+		out int
+	}{
+		{1, 1},
+		{2, 2},
+		{4, 4},
+		{8, 8},
+		{16, 16},
+		{32, 32},
+		{64, 64},
+		{128, 128},
+		{256, 256},
+		{512, 512},
+		{1024, 1024},
+		{2048, 2048},
+	}
+
+	for _, tt := range tests {
+		got := RandStrWithOption(tt.len, Option{
+			IncludeNumber:    true,
+			IncludeUppercase: true,
+			IncludeSymbol:    true,
+		})
 		if len(got) != tt.out {
 			t.Errorf("RandStr(%d) = %d, want: %d", tt.len, len(got), tt.out)
 		}
@@ -91,7 +126,7 @@ func TestTrim(t *testing.T) {
 }
 
 func TestTrimLeft(t *testing.T) {
-  tests := []struct {
+	tests := []struct {
 		name string
 		s    string
 		char string
@@ -123,7 +158,7 @@ func TestTrimLeft(t *testing.T) {
 }
 
 func TestTrimRight(t *testing.T) {
-  tests := []struct {
+	tests := []struct {
 		name string
 		s    string
 		char string
