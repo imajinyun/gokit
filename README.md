@@ -18,12 +18,29 @@ import "github.com/imajinyun/gohelper"
 
 ## Examples
 
+### Simplify the judgment of if else to a single line of code:
+
 ```go
-if expr {
-  true
-} else {
-  false
+flag, expr := 0, "some version"
+if expr == "v1" {
+  flag = 1
+} else if expr == "v2" {
+  flag = 2
 }
 
-gohelper.If(expr, true, false)
+flag = gohelper.If(expr == "v1", 1, gohelper.If(expr == "v2", 2, 0))
+```
+
+### Generate string with options (include uppercase, numbers, and symbols)
+
+```go
+// knvmfcmpfqiqcbrh
+gohelper.RandStr(16)
+
+// nD>fKDvaF\R}1h}G
+gohelper.RandStrWithOption(16, Option{
+  IncludeNumber:    true,
+  IncludeUppercase: true,
+  IncludeSymbol:    true,
+})
 ```
