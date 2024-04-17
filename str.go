@@ -30,6 +30,8 @@ type Option struct {
 //
 // n: the length of the string to be generated.
 // string: the randomly generated string.
+//
+// @see https://github.com/tamboto2000/random
 func RandStr(n int) string {
 	return gen(n, Option{})
 }
