@@ -1,5 +1,7 @@
 # gohelper
 
+[![Go](https://github.com/imajinyun/gohelper/actions/workflows/go.yml/badge.svg)](https://github.com/imajinyun/gohelper/actions/workflows/go.yml)
+
 A package of Go helper functions for business development.
 
 ## Installation
