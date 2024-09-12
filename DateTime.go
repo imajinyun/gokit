@@ -60,6 +60,10 @@ func (d *DateTime) Year() int {
 	return d.tim.In(d.loc).Year()
 }
 
+func (d *DateTime) YearDay() int {
+	return d.tim.In(d.loc).YearDay()
+}
+
 func (d *DateTime) Month() time.Month {
 	return d.tim.In(d.loc).Month()
 }
@@ -92,14 +96,13 @@ func (d *DateTime) Unix() int64 {
 	return d.tim.Unix()
 }
 
-func (d *DateTime) Yesterday() time.Time {
-	return d.tim.AddDate(0, 0, -1).In(d.loc)
-}
-
 func (d *DateTime) Tomorrow() time.Time {
 	return d.tim.AddDate(0, 0, 1).In(d.loc)
 }
 
+func (d *DateTime) Yesterday() time.Time {
+	return d.tim.AddDate(0, 0, -1).In(d.loc)
+}
 func (d *DateTime) LastWeek() time.Time {
 	return d.tim.AddDate(0, 0, -7).In(d.loc)
 }
@@ -114,4 +117,22 @@ func (d *DateTime) BeginOfDay() time.Time {
 
 func (d *DateTime) EndOfDay() time.Time {
 	return time.Date(d.tim.Year(), d.tim.Month(), d.tim.Day(), 23, 59, 59, 0, d.loc)
+}
+
+func (d *DateTime) BeginOfMonth() time.Time {
+	return time.Date(d.tim.Year(), d.tim.Month(), 1, 0, 0, 0, 0, d.loc)
+}
+
+func (d *DateTime) EndOfMonth() time.Time {
+	last := time.Date(d.tim.Year(), d.tim.Month()+1, 1, 0, 0, 0, 0, d.loc).Add(time.Duration(-1) * time.Second)
+	return time.Date(last.Year(), last.Month(), last.Day(), 23, 59, 59, 0, d.loc)
+}
+
+func (d *DateTime) BeginOfYear() time.Time {
+	return time.Date(d.tim.Year(), 1, 1, 0, 0, 0, 0, d.loc)
+}
+
+func (d *DateTime) EndOfYear() time.Time {
+	last := time.Date(d.tim.Year()+1, 1, 1, 0, 0, 0, 0, d.loc).Add(time.Duration(-1) * time.Second)
+	return time.Date(last.Year(), last.Month(), last.Day(), 23, 59, 59, 0, d.loc)
 }

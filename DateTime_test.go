@@ -25,11 +25,69 @@ func TestNowDateTime_BeginEndOfDay(t *testing.T) {
 		gotBegin, gotEnd := tim.BeginOfDay().Format(tt.layout), tim.EndOfDay().Format(tt.layout)
 
 		if gotBegin != outBegin {
-			t.Errorf("tim.ParseTime() = %s, want: %s", gotBegin, outBegin)
+			t.Errorf("tim.BeginEndOfDay() = %s, want: %s", gotBegin, outBegin)
 		}
 
 		if gotEnd != outEnd {
-			t.Errorf("tim.ParseTime() = %s, want: %s", gotEnd, outEnd)
+			t.Errorf("tim.BeginEndOfDay() = %s, want: %s", gotEnd, outEnd)
+		}
+	}
+}
+
+func TestNowDateTime_BeginEndOfMonth(t *testing.T) {
+	now, tests := getNowDateTime()
+	for _, tt := range tests {
+		loc, err := time.LoadLocation(tt.zone)
+		if err != nil {
+			t.Error(err)
+		}
+
+		tmp := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, loc)
+		out := time.Date(tmp.Year(), tmp.Month(), 1, 0, 0, 0, 0, tmp.Location())
+		outBegin := out.Format(tt.layout)
+		outEnd := out.AddDate(0, 1, 0).Add(time.Duration(-1) * time.Second).Format(tt.layout)
+
+		tim, err := NowDateTime(tt.zone, tt.layout)
+		if err != nil {
+			t.Error(err)
+		}
+		gotBegin, gotEnd := tim.BeginOfMonth().Format(tt.layout), tim.EndOfMonth().Format(tt.layout)
+
+		if gotBegin != outBegin {
+			t.Errorf("tim.BeginEndOfMonth() = %s, want: %s", gotBegin, outBegin)
+		}
+
+		if gotEnd != outEnd {
+			t.Errorf("tim.BeginEndOfMonth() = %s, want: %s", gotEnd, outEnd)
+		}
+	}
+}
+
+func TestNowDateTime_BeginEndOfYear(t *testing.T) {
+	now, tests := getNowDateTime()
+	for _, tt := range tests {
+		loc, err := time.LoadLocation(tt.zone)
+		if err != nil {
+			t.Error(err)
+		}
+
+		tmp := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, loc)
+		out := time.Date(tmp.Year(), 1, 1, 0, 0, 0, 0, tmp.Location())
+		outBegin := out.Format(tt.layout)
+		outEnd := out.AddDate(1, 0, 0).Add(time.Duration(-1) * time.Second).Format(tt.layout)
+
+		tim, err := NowDateTime(tt.zone, tt.layout)
+		if err != nil {
+			t.Error(err)
+		}
+		gotBegin, gotEnd := tim.BeginOfYear().Format(tt.layout), tim.EndOfYear().Format(tt.layout)
+
+		if gotBegin != outBegin {
+			t.Errorf("tim.BeginEndOfYear() = %s, want: %s", gotBegin, outBegin)
+		}
+
+		if gotEnd != outEnd {
+			t.Errorf("tim.BeginEndOfYear() = %s, want: %s", gotEnd, outEnd)
 		}
 	}
 }
@@ -337,6 +395,26 @@ func TestNowDateTime_Year(t *testing.T) {
 	}
 }
 
+func TestNowDateTime_YearDay(t *testing.T) {
+	now, tests := getNowDateTime()
+	for _, tt := range tests {
+		loc, err := time.LoadLocation(tt.zone)
+		if err != nil {
+			t.Error(err)
+		}
+
+		out := now.In(loc).YearDay()
+		tim, err := NowDateTime(tt.zone, tt.layout)
+		if err != nil {
+			t.Error(err)
+		}
+
+		if got := tim.YearDay(); got != out {
+			t.Errorf("tim.Year() = %d, want: %d", got, out)
+		}
+	}
+}
+
 func TestNowDateTime_Yesterday(t *testing.T) {
 	now, tests := getNowDateTime()
 	for _, tt := range tests {
@@ -377,7 +455,8 @@ func TestMain(t *testing.T) {
 	fmt.Println("tim.FmtDate() ->", tim.FmtDate())
 	fmt.Println("tim.FmtTime() ->", tim.FmtTime())
 	fmt.Println("tim.FmtDateTime() ->", tim.FmtDateTime())
-	fmt.Println("tim.FmtDateTime() ->", tim.FmtDateTime())
+	fmt.Println("tim.BeginOfDay() ->", tim.BeginOfDay())
+	fmt.Println("tim.EndOfDay() ->", tim.EndOfDay())
 }
 
 func getNowDateTime() (time.Time, []struct {
