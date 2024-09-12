@@ -440,7 +440,7 @@ func TestMain(t *testing.T) {
 	tim, _ := NowDateTime("Asia/Shanghai", time.DateTime)
 	fmt.Println("tim.ToString() ->", tim.ToString())
 	fmt.Println("tim.Year() ->", tim.Year())
-  fmt.Println("tim.YearDay() ->", tim.YearDay())
+	fmt.Println("tim.YearDay() ->", tim.YearDay())
 	fmt.Println("tim.Month() ->", tim.Month())
 	fmt.Println("tim.Day() ->", tim.Day())
 	fmt.Println("tim.Hour() ->", tim.Hour())
@@ -458,6 +458,10 @@ func TestMain(t *testing.T) {
 	fmt.Println("tim.FmtDateTime() ->", tim.FmtDateTime())
 	fmt.Println("tim.BeginOfDay() ->", tim.BeginOfDay())
 	fmt.Println("tim.EndOfDay() ->", tim.EndOfDay())
+	fmt.Println("tim.BeginOfMonth() ->", tim.BeginOfMonth())
+	fmt.Println("tim.EndOfMonth() ->", tim.EndOfMonth())
+	fmt.Println("tim.BeginOfYear() ->", tim.BeginOfYear())
+	fmt.Println("tim.EndOfYear() ->", tim.EndOfYear())
 }
 
 func getNowDateTime() (time.Time, []struct {
