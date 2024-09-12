@@ -1,6 +1,7 @@
 package gohelper
 
 import (
+	"fmt"
 	"testing"
 	"time"
 )
@@ -355,6 +356,17 @@ func TestNowDateTime_Yesterday(t *testing.T) {
 			t.Errorf("tim.Yesterday() = %s, want: %s", got, out)
 		}
 	}
+}
+
+func TestMain(t *testing.T) {
+	tim, _ := NowDateTime("Asia/Shanghai", time.DateTime)
+	fmt.Println("tim.ToString() ->", tim.ToString())
+	fmt.Println("tim.Year() ->", tim.Year())
+	fmt.Println("tim.Month() ->", tim.Month())
+	fmt.Println("tim.Day() ->", tim.Day())
+	fmt.Println("tim.Hour() ->", tim.Hour())
+	fmt.Println("tim.Minute() ->", tim.Minute())
+	fmt.Println("tim.Second() ->", tim.Second())
 }
 
 func getNowDateTime() (time.Time, []struct {
