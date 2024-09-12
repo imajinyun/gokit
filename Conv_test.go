@@ -22,6 +22,7 @@ func TestToString(t *testing.T) {
 		{nil, "<nil>"},
 		{"", ""},
 		{[]int{1, 2, 3}, "[1 2 3]"},
+    {[]string{"hello", "world"}, `[hello world]`},
 		{[]float64{1.20, 2.30, 3.40}, "[1.2 2.3 3.4]"},
 		{[...]uint{1, 2, 3}, "[1 2 3]"},
 		{struct{ name string }{"jack"}, `{jack}`},

@@ -367,6 +367,17 @@ func TestMain(t *testing.T) {
 	fmt.Println("tim.Hour() ->", tim.Hour())
 	fmt.Println("tim.Minute() ->", tim.Minute())
 	fmt.Println("tim.Second() ->", tim.Second())
+	fmt.Println("time.Nanosecond() ->", tim.Nanosecond())
+	fmt.Println("tim.Weekday() ->", tim.Weekday())
+	fmt.Println("tim.Unix() ->", tim.Unix())
+	fmt.Println("tim.Now() ->", tim.Now())
+	fmt.Println("tim.Today() ->", tim.Today())
+	fmt.Println("tim.Tomorrow() ->", tim.Tomorrow())
+	fmt.Println("tim.Yesterday() ->", tim.Yesterday())
+	fmt.Println("tim.FmtDate() ->", tim.FmtDate())
+	fmt.Println("tim.FmtTime() ->", tim.FmtTime())
+	fmt.Println("tim.FmtDateTime() ->", tim.FmtDateTime())
+	fmt.Println("tim.FmtDateTime() ->", tim.FmtDateTime())
 }
 
 func getNowDateTime() (time.Time, []struct {
