@@ -440,6 +440,7 @@ func TestMain(t *testing.T) {
 	tim, _ := NowDateTime("Asia/Shanghai", time.DateTime)
 	fmt.Println("tim.ToString() ->", tim.ToString())
 	fmt.Println("tim.Year() ->", tim.Year())
+  fmt.Println("tim.YearDay() ->", tim.YearDay())
 	fmt.Println("tim.Month() ->", tim.Month())
 	fmt.Println("tim.Day() ->", tim.Day())
 	fmt.Println("tim.Hour() ->", tim.Hour())

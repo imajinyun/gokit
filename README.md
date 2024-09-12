@@ -70,6 +70,9 @@ tim.ToString()
 // Output: 2024
 tim.Year()
 
+// Output: 256
+tim.YearDay()
+
 // Output: September
 tim.Month()
 
@@ -84,6 +87,28 @@ tim.Minute()
 
 // Output: 15
 tim.Second()
+```
+
+3. Get the begin and end of the day of the date and time object:
+
+```go
+// Output: 2024-09-12 00:00:00
+tim.BeginOfDay().Format(time.DateTime)
+
+// Output: 2024-09-12 23:59:59
+tim.BeginOfDay().Format(time.DateTime)
+
+// Output: 2024-09-01 00:00:00
+tim.BeginOfMonth().Format(time.DateTime)
+
+// Output: 2024-09-01 23:59:59
+tim.EndOfMonth().Format(time.DateTime)
+
+// Output: 2024-01-01 00:00:00
+tim.BeginOfYear().Format(time.DateTime)
+
+// Output: 2024-12-31 23:59:59
+tim.EndOfYear().Format(time.DateTime)
 ```
 
 ### Map
