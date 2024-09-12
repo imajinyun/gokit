@@ -37,7 +37,7 @@ func (d *DateTime) Now() string {
 }
 
 func (d *DateTime) Today() string {
-	return d.tim.In(d.loc).Format(d.layout)
+	return d.tim.In(d.loc).Format(time.DateOnly)
 }
 
 func (d *DateTime) ToString() string {

@@ -222,7 +222,7 @@ func TestNowDateTime_Today(t *testing.T) {
 			t.Error(err)
 		}
 
-		out := now.In(loc).Format(tt.layout)
+		out := now.In(loc).Format(time.DateOnly)
 		tim, err := NowDateTime(tt.zone, tt.layout)
 		if err != nil {
 			t.Error(err)
