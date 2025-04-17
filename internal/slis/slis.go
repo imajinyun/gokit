@@ -3,6 +3,8 @@ package slis
 import (
 	"strings"
 
+	"slices"
+
 	"github.com/imajinyun/gokit/internal/conv"
 	"github.com/imajinyun/gokit/types"
 )
@@ -54,26 +56,15 @@ func (s *Slice[T]) Filter(iter types.CondIter[T]) []T {
 // list: the slice to search in (of type []T).
 // bool: returns true if the element is found, false otherwise.
 func InSlice[T comparable](elem T, list []T) bool {
-	for _, v := range list {
-		if v == elem {
-			return true
-		}
-	}
-
-	return false
+	return slices.Contains(list, elem)
 }
 
 // Contains returns if an element is present in a slice.
 //
 // elem: element to search for in the slice (of type T).
-// bool: returns true if the element is not found, false otherwise.
+// bool: returns true if the element is found, false otherwise.
 func (s *Slice[T]) Contains(elem T) bool {
-	for _, v := range s.data {
-		if v == elem {
-			return false
-		}
-	}
-	return true
+	return slices.Contains(s.data, elem)
 }
 
 // IsEmpty returns true if the slice contains no elements, false otherwise.
