@@ -10,7 +10,7 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/imajinyun/gohelper/internal/cond"
+	"github.com/imajinyun/gokit/internal/cond"
 )
 
 // RandInt generates a random integer within the specified range.

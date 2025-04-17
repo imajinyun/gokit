@@ -1,7 +1,7 @@
 package gokit
 
 import (
-	"github.com/imajinyun/gohelper/types"
+	"github.com/imajinyun/gokit/types"
 )
 
 func Filter[T any](data []T, iter types.CondIter[T]) []T {

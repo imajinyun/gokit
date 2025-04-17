@@ -1,7 +1,7 @@
 package gokit
 
 import (
-	"github.com/imajinyun/gohelper/internal/strs"
+	"github.com/imajinyun/gokit/internal/strs"
 )
 
 func RandStr(n int) string {

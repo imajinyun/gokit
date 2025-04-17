@@ -1,7 +1,7 @@
 package gokit
 
 import (
-	"github.com/imajinyun/gohelper/internal/datetime"
+	"github.com/imajinyun/gokit/internal/datetime"
 )
 
 func NewDateTime(date string, zone string, layout string) (*datetime.DateTime, error) {

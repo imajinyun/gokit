@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/imajinyun/gohelper/internal/datetime"
+	"github.com/imajinyun/gokit/internal/datetime"
 )
 
 type DateTime struct {

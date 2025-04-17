@@ -1,6 +1,6 @@
 package gokit
 
-import "github.com/imajinyun/gohelper/internal/cond"
+import "github.com/imajinyun/gokit/internal/cond"
 
 // If is a function that takes a boolean expression and two values, and returns one of the values based on the evaluation of the expression.
 //

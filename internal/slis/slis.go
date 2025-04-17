@@ -3,8 +3,8 @@ package slis
 import (
 	"strings"
 
-	"github.com/imajinyun/gohelper/internal/conv"
-	"github.com/imajinyun/gohelper/types"
+	"github.com/imajinyun/gokit/internal/conv"
+	"github.com/imajinyun/gokit/types"
 )
 
 type Slice[T comparable] struct {

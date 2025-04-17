@@ -1,6 +1,6 @@
 package gokit
 
-import "github.com/imajinyun/gohelper/internal/conv"
+import "github.com/imajinyun/gokit/internal/conv"
 
 func ToString(data any) string {
 	return conv.ToString(data)
