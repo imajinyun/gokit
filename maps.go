@@ -1,4 +1,4 @@
-package gohelper
+package gokit
 
 // GetOrDefault retrieves the value from a map based on the key. If the key does not exist, it returns the default value.
 //

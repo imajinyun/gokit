@@ -1,4 +1,4 @@
-package gohelper
+package strs
 
 import (
 	"math/rand"
@@ -16,15 +16,14 @@ const numbers = "0123456789"
 const symbols = `~!@#$%^&*()_+{}|:"<>?-=[]\;',./`
 
 const letterIdxBits = 6
-const	letterIdxMask = 2<<letterIdxBits - 1
-const	letterIdxMax  = 63 / letterIdxBits
+const letterIdxMask = 2<<letterIdxBits - 1
+const letterIdxMax = 63 / letterIdxBits
 
 type Option struct {
-  IncludeNumber bool
-  IncludeUppercase bool
-  IncludeSymbol bool
+	IncludeNumber    bool
+	IncludeUppercase bool
+	IncludeSymbol    bool
 }
-
 
 // RandStr generates a random string of length n.
 //
@@ -42,7 +41,7 @@ func RandStr(n int) string {
 // opt: the options to include in the generated string.
 // string: the randomly generated string.
 func RandStrWithOption(n int, opt Option) string {
-  return gen(n, opt)
+	return gen(n, opt)
 }
 
 func Empty(val any) bool {
@@ -119,24 +118,24 @@ func TrimRight(s string, char string) string {
 }
 
 func gen(n int, opt Option) string {
-  letters := lowercs
+	letters := lowercs
 
-  if opt.IncludeNumber {
-    letters += numbers
-  }
+	if opt.IncludeNumber {
+		letters += numbers
+	}
 
-  if opt.IncludeUppercase {
-    letters +=uppercs
-  }
+	if opt.IncludeUppercase {
+		letters += uppercs
+	}
 
-  if opt.IncludeSymbol {
-    letters += symbols
-  }
+	if opt.IncludeSymbol {
+		letters += symbols
+	}
 
-  src := rand.NewSource(time.Now().UnixNano())
-  byt := make([]byte, n)
+	src := rand.NewSource(time.Now().UnixNano())
+	byt := make([]byte, n)
 
-  for i, cache, remain := n-1, src.Int63(), letterIdxMax; i >= 0; {
+	for i, cache, remain := n-1, src.Int63(), letterIdxMax; i >= 0; {
 		if remain == 0 {
 			cache, remain = src.Int63(), letterIdxMax
 		}
@@ -149,5 +148,5 @@ func gen(n int, opt Option) string {
 		remain--
 	}
 
-  return *(*string)(unsafe.Pointer(&byt))
+	return *(*string)(unsafe.Pointer(&byt))
 }

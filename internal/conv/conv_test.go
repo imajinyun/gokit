@@ -1,4 +1,4 @@
-package gohelper
+package conv
 
 import (
 	"reflect"

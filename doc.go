@@ -1,3 +1,3 @@
-package gohelper
+package gokit
 
-// A package of Go helper functions for business development.
+// A package of Go kit functions for business development.

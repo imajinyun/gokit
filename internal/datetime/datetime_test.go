@@ -1,4 +1,4 @@
-package gohelper
+package datetime
 
 import (
 	"fmt"

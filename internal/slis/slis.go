@@ -1,12 +1,15 @@
-package gohelper
+package slis
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/imajinyun/gohelper/internal/conv"
+	"github.com/imajinyun/gohelper/types"
+)
 
 type Slice[T comparable] struct {
 	data []T
 }
-
-type CondIter[T any] func(k int, v T) bool
 
 // Filter filters the given data slice using the provided condition iterator.
 //
@@ -16,7 +19,7 @@ type CondIter[T any] func(k int, v T) bool
 //
 // Returns:
 // - a new slice containing the elements that satisfy the condition (of type []T)
-func Filter[T any](data []T, iter CondIter[T]) []T {
+func Filter[T any](data []T, iter types.CondIter[T]) []T {
 	var res = make([]T, 0)
 	for k, v := range data {
 		if iter(k, v) {
@@ -34,7 +37,7 @@ func Filter[T any](data []T, iter CondIter[T]) []T {
 //
 // Returns:
 // - a new slice containing the elements that satisfy the condition (of type []T)
-func (s *Slice[T]) Filter(iter CondIter[T]) []T {
+func (s *Slice[T]) Filter(iter types.CondIter[T]) []T {
 	var res = make([]T, 0)
 	for k, v := range s.data {
 		if iter(k, v) {
@@ -101,7 +104,7 @@ func (s *Slice[T]) Len() int {
 func (s *Slice[T]) ToJoin(sep string) string {
 	var res []string
 	for _, v := range s.data {
-		res = append(res, ToString(v))
+		res = append(res, conv.ToString(v))
 	}
 
 	return strings.Join(res, sep)

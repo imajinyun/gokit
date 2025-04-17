@@ -1,4 +1,4 @@
-package gohelper
+package cond
 
 // If is a function that takes a boolean expression and two values, and returns one of the values based on the evaluation of the expression.
 //

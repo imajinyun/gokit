@@ -1,4 +1,4 @@
-package gohelper
+package nums
 
 import (
 	"fmt"
@@ -9,6 +9,8 @@ import (
 	"strconv"
 	"time"
 	"unicode"
+
+	"github.com/imajinyun/gohelper/internal/cond"
 )
 
 // RandInt generates a random integer within the specified range.
@@ -126,7 +128,7 @@ func IsPositive[T any](value T) (positive bool) {
 	case float32, float64:
 		positive = math.Remainder(reflect.ValueOf(v).Float(), 1) == 0
   case bool:
-    positive = If(v.(bool), true, false)
+    positive = cond.If(v.(bool), true, false)
 	case string:
 		f, err := strconv.ParseFloat(v.(string), 64)
 		if err != nil {

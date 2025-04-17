@@ -1,4 +1,4 @@
-package gohelper
+package maps
 
 import "testing"
 

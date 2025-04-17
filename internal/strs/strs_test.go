@@ -1,4 +1,4 @@
-package gohelper
+package strs
 
 import (
 	"testing"
