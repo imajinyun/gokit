@@ -118,7 +118,7 @@ tim.EndOfYear().Format(time.DateTime)
 ```go
 // Output: default value
 mps := make(map[string]any)
-mps.GetOrDefault("mykey", "default value")
+GetOrDefault("mykey", "default value")
 ```
 
 ### Str
