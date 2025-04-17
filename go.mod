@@ -1,4 +1,4 @@
-module github.com/imajinyun/gohelper
+module github.com/imajinyun/gokit
 
 go 1.21.6
 
